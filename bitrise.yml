@@ -40,11 +40,11 @@ workflows:
           file if you would not specify another value.
         run_if: true
         inputs:
-        - client_key: "secret-escapes"
-        - pipeline: "app-android"
+        - client_key: "company-name"
+        - pipeline: "mobile-app"
         - branch_name: "release/5.4.5"
         - build: "5.4.5"
-        - commits: "c2d755df237e05756482a83b819044e1db61dfe4"
+        - commits: "c2d755df237ea83b819044e1db61dfe405756482"
         - BITRISE_BUILD_STATUS: 0
 
 
