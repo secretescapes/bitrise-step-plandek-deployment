@@ -11,7 +11,6 @@ echo "${build}"
 echo "${commits}"
 
 body='{
-  {
   "client_key": "'${client_key}'",
   "pipeline": "'${pipeline}'",
   "build": "'${build}'",
@@ -19,11 +18,17 @@ body='{
   "commits": "'${commits}'",
 '
 
+if [ -n "$branch_name" ]; 
+then
+  body+='  "branch_name": "'${branch_name}'",
+'
+fi
+
 if [ "$BITRISE_BUILD_STATUS" == "0" ]; 
 then
-  body+='    "status": "success"'
+  body+='  "status": "success"'
 else
-  body+='    "status": "failure"'
+  body+='  "status": "failure"'
 fi
 
 body+='
@@ -36,7 +41,7 @@ res="$(curl -X POST -H 'Content-Type: application/json' -H 'Authorization: Beare
 echo "${res}"
 
 if [[ $res == *"detail"* ]]; then
-  error="$(echo $res | jq '.title .detail' | tr -d '"')"
+  error="$(echo $res | jq '.detail' | tr -d '"')"
   echo $'\t'"${red}❗️ Failed $error ${reset}"
 else
   status="$(echo $res | jq '.status' | tr -d '"')"
