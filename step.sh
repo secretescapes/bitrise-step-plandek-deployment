@@ -4,6 +4,7 @@ red=$'\e[31m'
 green=$'\e[32m'
 reset=$'\e[0m'
 
+echo "${GIT_CLONE_COMMIT_HASH}"
 echo "${client_key}"
 echo "${pipeline}"
 echo "${build}"
