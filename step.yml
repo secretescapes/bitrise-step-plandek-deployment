@@ -20,15 +20,6 @@ toolkit:
     entry_file: step.sh
 
 inputs:
-  - is_debug_mode: "no"
-    opts:
-      title: "Debug mode?"
-      description: |
-        Step prints additional debug information if this option
-        is enabled.
-      value_options:
-      - "yes"
-      - "no"
   - api_token: 
     opts:
       title: "API token"
@@ -51,12 +42,6 @@ inputs:
          your pipeline name (e.g. repo name) to make it easier to understand your data. 
       is_required: true
       is_expand: true
-  - branch_name: $BITRISE_GIT_BRANCH
-    opts:
-      title: "Branch name"
-      description: |
-        Name of the branch being deployed.
-      is_expand: true
   - build:
     opts:
       title: "Build"
@@ -69,3 +54,9 @@ inputs:
       description: |
         The full commit hash(s) of the release being deployed
       is_required: true
+  - branch_name: $BITRISE_GIT_BRANCH
+    opts:
+      title: "Branch name"
+      description: |
+        Name of the branch being deployed.
+      is_expand: true
