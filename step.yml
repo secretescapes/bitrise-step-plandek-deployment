@@ -1,0 +1,80 @@
+#
+# A couple of useful guides & docs:
+#
+# - Main Bitrise CLI docs: https://github.com/bitrise-io/bitrise/tree/master/_docs
+# - Step Development Guideline: https://github.com/bitrise-io/bitrise/blob/master/_docs/step-development-guideline.md
+# - Bitrise.yml format spec: https://github.com/bitrise-io/bitrise/blob/master/_docs/bitrise-yml-format-spec.md
+# - Bitrise docs: http://devcenter.bitrise.io/
+# - Bitrise CLI guides: http://devcenter.bitrise.io/bitrise-cli/
+
+title: |-
+  Plandek - deployment
+summary: |
+  Enables you to track and visualize build and deployment events within Plandek's metrics and dashboards.
+description: |
+  Wrapper implementing the Plandek /deployment POST API. Used to complete a deployment within Plandek for a given release cycle.
+  More details can be found here: https://api.plandek.com/deployments/v1/ui/
+website: https://github.com/secretescapes/bitrise-step-plandek-deployment
+source_code_url: https://github.com/secretescapes/bitrise-step-plandek-deployment
+support_url: https://github.com/secretescapes/bitrise-step-plandek-deployment/issues
+
+type_tags:
+  - utility
+
+is_always_run: true
+is_skippable: true
+
+toolkit:
+  bash:
+    entry_file: step.sh
+
+inputs:
+  - is_debug_mode: "no"
+    opts:
+      title: "Debug mode?"
+      description: |
+        Step prints additional debug information if this option
+        is enabled.
+      value_options:
+      - "yes"
+      - "no"
+  - api_token: 
+    opts:
+      title: "API token"
+      description: |         
+         Plandek API token.
+      is_required: true
+      is_sensitive: true
+  - client_key:
+    opts:
+      title: "Client key"
+      description: |
+         Unique identifier for your instance.
+      is_required: true
+  - pipeline: $BITRISE_APP_TITLE
+    opts:
+      title: "Pipeline"
+      description: |
+         Typically corresponds to the name of your pipeline, workflow, repo, or service under which builds are compiled.
+         If you use the same name pipelines across your organization, we recommend appending additional information to
+         your pipeline name (e.g. repo name) to make it easier to understand your data. 
+      is_required: true
+      is_expand: true
+  - branch_name: $BITRISE_GIT_BRANCH
+    opts:
+      title: "Branch name"
+      description: |
+        Name of the branch being deployed.
+      is_expand: true
+  - build:
+    opts:
+      title: "Build"
+      description: |
+        Build identifier in your build tool. Typically the version being deployed (e.g. Svc B 10.2.1).
+      is_required: true
+  - commits: $BITRISE_GIT_COMMIT
+    opts:
+      title: "Commits"
+      description: |
+        The full commit hash(s) of the release being deployed
+      is_required: true
