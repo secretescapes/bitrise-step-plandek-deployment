@@ -32,9 +32,9 @@ inputs:
     opts:
       title: "API token"
       summary: |
-         Plandek API token.
+        Plandek API token.
       description: |
-         Plandek API token.
+        Plandek API token.
       is_required: true
       is_sensitive: true
       is_expand: true
@@ -42,19 +42,19 @@ inputs:
     opts:
       title: "Client key"
       summary: |
-         Unique identifier for your instance.
+        Unique identifier of your instance.
       description: |
-         Unique identifier for your instance.
+        Unique identifier of your instance.
       is_required: true
   - pipeline: $BITRISE_APP_TITLE
     opts:
       title: "Pipeline"
       summary: |
-         Typically corresponds to the name of your pipeline, workflow, repo, or service under which builds are compiled.
+        Typically corresponds to the name of your pipeline, workflow, repo, or service under which builds are compiled.
       description: |
-         Typically corresponds to the name of your pipeline, workflow, repo, or service under which builds are compiled.
-         If you use the same name pipelines across your organization, we recommend appending additional information to
-         your pipeline name (e.g. repo name) to make it easier to understand your data.
+        Typically corresponds to the name of your pipeline, workflow, repo, or service under which builds are compiled.
+        If you use the same name pipelines across your organization, we recommend appending additional information to
+        your pipeline name (e.g. repo name) to make it easier to understand your data.
       is_required: true
       is_expand: true
   - build:
@@ -69,9 +69,9 @@ inputs:
     opts:
       title: "Commits"
       summary: |
-        The full commit hash(s) of the release being deployed
+        The full commit hash(es) of the release being deployed.
       description: |
-        The full commit hash(s) of the release being deployed
+        The full commit hash(es) of the release being deployed.
       is_required: true
   - calculate_commits_in_build: "false"
     opts:
