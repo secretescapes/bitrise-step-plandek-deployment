@@ -19,44 +19,78 @@ toolkit:
   bash:
     entry_file: step.sh
 
+deps:
+  brew:
+  - name: jq
+  - name: curl
+  apt_get:
+  - name: jq
+  - name: curl
+
 inputs:
-  - api_token: 
+  - api_token:
     opts:
       title: "API token"
-      description: |         
+      summary: |
+         Plandek API token.
+      description: |
          Plandek API token.
       is_required: true
       is_sensitive: true
+      is_expand: true
   - client_key:
     opts:
       title: "Client key"
+      summary: |
+         Unique identifier for your instance.
       description: |
          Unique identifier for your instance.
       is_required: true
   - pipeline: $BITRISE_APP_TITLE
     opts:
       title: "Pipeline"
+      summary: |
+         Typically corresponds to the name of your pipeline, workflow, repo, or service under which builds are compiled.
       description: |
          Typically corresponds to the name of your pipeline, workflow, repo, or service under which builds are compiled.
          If you use the same name pipelines across your organization, we recommend appending additional information to
-         your pipeline name (e.g. repo name) to make it easier to understand your data. 
+         your pipeline name (e.g. repo name) to make it easier to understand your data.
       is_required: true
       is_expand: true
   - build:
     opts:
       title: "Build"
+      summary: |
+        Build identifier in your build tool. Typically the version being deployed (e.g. Svc B 10.2.1).
       description: |
         Build identifier in your build tool. Typically the version being deployed (e.g. Svc B 10.2.1).
       is_required: true
   - commits: $BITRISE_GIT_COMMIT
     opts:
       title: "Commits"
+      summary: |
+        The full commit hash(s) of the release being deployed
       description: |
         The full commit hash(s) of the release being deployed
       is_required: true
+  - calculate_commits_in_build: "false"
+    opts:
+      title: Network Logs
+      summary: |
+        If true, Plandek will use the information in your deployment to work out what commits were included in the release
+        (see below for explanation). If false, you must specify the commits in the commits field.
+      description: |
+        If true, Plandek will use the information in your deployment to work out what commits were included in the release
+        (see below for explanation). If false, you must specify the commits in the commits field.
+      is_required: true
+      value_options:
+      - "true"
+      - "false"
   - branch_name: $BITRISE_GIT_BRANCH
     opts:
       title: "Branch name"
+      summary: |
+        Name of the branch being deployed.
       description: |
         Name of the branch being deployed.
       is_expand: true

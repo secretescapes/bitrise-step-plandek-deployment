@@ -40,6 +40,7 @@ workflows:
           file if you would not specify another value.
         run_if: true
         inputs:
+        - api_token: "test-token"
         - client_key: "company-name"
         - pipeline: "mobile-app"
         - branch_name: "release/5.4.5"

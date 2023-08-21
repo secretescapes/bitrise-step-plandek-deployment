@@ -8,9 +8,17 @@ body='{
   "client_key": "'${client_key}'",
   "pipeline": "'${pipeline}'",
   "build": "'${build}'",
-  "calculate_commits_in_build": false,
   "commits": "'${commits}'",
 '
+
+if [ "$calculate_commits_in_build" == "true" ]; 
+then
+  body+='  "calculate_commits_in_build": true,
+'
+else
+  body+='  "calculate_commits_in_build": false,
+'
+fi
 
 if [ -n "$branch_name" ]; 
 then
@@ -20,17 +28,18 @@ fi
 
 if [ "$BITRISE_BUILD_STATUS" == "0" ]; 
 then
-  body+='  "status": "success"'
+  body+='  "status": "success"
+'
 else
-  body+='  "status": "failure"'
+  body+='  "status": "failure"
+'
 fi
 
-body+='
-}'
+body+='}'
 
 echo "${body}"
 
-res="$(curl -X POST -H 'Content-Type: application/json' -H 'Authorization: Bearer "{api_token}"' --data-raw "${body}" https://pipelines.plandek.com/deployments/v1/deployment)"
+res=$(curl -H 'Content-Type: application/json' -H "Authorization: Bearer ${api_token}" --data-raw "${body}" -v https://pipelines.plandek.com/deployments/v1/deployment)
 
 echo "${res}"
 
