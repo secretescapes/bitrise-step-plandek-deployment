@@ -30,13 +30,13 @@ You can also run this step directly with [Bitrise CLI](https://github.com/bitris
 | `api_token` | Plandek API token.| required, sensitive | |
 | `branch_name` | Name of the branch being deployed. | | |
 | `build` | Build identifier in your build tool. Typically the version being deployed (e.g. Svc B 10.2.1). | required | |
-| `calculate_commits_in_build` | Calculate commits | If `true`, Plandek will use the information in your deployment to work out what commits were included in the release. If `false`, you must specify the commits in the commits field. | | `false` |
+| `calculate_commits_in_build` | If `true`, Plandek will use the information in your deployment to work out what commits were included in the release. If `false`, you must specify the commits in the commits field. | | `false` |
 | `client_key` | Unique identifier for your instance. | required | |
 | `commenced_at` | ISO date string including timezone. Used to calculate the time duration of the deployment. | | |
 | `commits` | The full commit hash(s) of the release being deployed. | required | |
 | `context` | String with any value, which can be used to categorize the deployments. | | |
 | `debug` | Will enable bash script debug log mode. | required | `false` |
-| `deployed_at` | Deployed at | ISO date string including timezone. Plandek will default to current time if omitted. | | |
+| `deployed_at` | ISO date string including timezone. Plandek will default to current time if omitted. | | |
 | `dry_run` | Will build the Plandek request body and print it, but will not run request itself. | required | `false` |
 | `pipeline` | Typically corresponds to the name of your pipeline, workflow, repo, or service under which builds are compiled. If you use the same name pipelines across your organization, we recommend appending additional information to your pipeline name (e.g. repo name) to make it easier to understand your data. | required | `$BITRISE_APP_TITLE` |
 
