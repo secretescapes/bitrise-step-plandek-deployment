@@ -57,13 +57,19 @@ then
 '
 fi
 
-if [ "$BITRISE_BUILD_STATUS" == "0" ]; 
+if [ -n "$status" ]; 
 then
-  body+='  "status": "success"
+  body+='  "status": "'${status}'",
 '
 else
-  body+='  "status": "failure"
-'
+  if [ "$BITRISE_BUILD_STATUS" == "0" ]; 
+  then
+    body+='  "status": "success"
+  '
+  else
+    body+='  "status": "failure"
+  '
+  fi
 fi
 
 body+='}'

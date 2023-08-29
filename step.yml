@@ -4,7 +4,7 @@ summary: |
   Enables you to track and visualize build and deployment events within Plandek's metrics and dashboards.
 description: |
   Wrapper implementing the Plandek /deployment POST API. Used to complete a deployment within Plandek for a given release cycle.
-  More details can be found here: https://api.plandek.com/deployments/v1/ui/
+  More details can be found here: [https://api.plandek.com/deployments/v1/ui/](https://api.plandek.com/deployments/v1/ui/)
 website: https://github.com/secretescapes/bitrise-step-plandek-deployment
 source_code_url: https://github.com/secretescapes/bitrise-step-plandek-deployment
 support_url: https://github.com/secretescapes/bitrise-step-plandek-deployment/issues
@@ -124,6 +124,20 @@ inputs:
       description: |
         String with any value, which can be used to categorize the deployments.
       skip_if_empty: true
+  - status:
+    opts:
+      category: Optional
+      title: Release status
+      summary: |
+        Release status to be reported to Plandek.
+      description: |
+        Release status to be reported to Plandek.  If not provided, then status would be
+        determined based on `$BITRISE_BUILD_STATUS` env variable.
+      value_options:
+      - "success"
+      - "failure"
+      - "rollback"
+      - "aborted"
   - debug: "false"
     opts:
       category: Debug
