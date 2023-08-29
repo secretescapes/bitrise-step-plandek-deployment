@@ -4,7 +4,7 @@ summary: |
   Enables you to track and visualize build and deployment events within Plandek's metrics and dashboards.
 description: |
   Wrapper implementing the Plandek /deployment POST API. Used to complete a deployment within Plandek for a given release cycle.
-  More details can be found here: https://api.plandek.com/deployments/v1/ui/
+  More details can be found here: [https://api.plandek.com/deployments/v1/ui/](https://api.plandek.com/deployments/v1/ui/)
 website: https://github.com/secretescapes/bitrise-step-plandek-deployment
 source_code_url: https://github.com/secretescapes/bitrise-step-plandek-deployment
 support_url: https://github.com/secretescapes/bitrise-step-plandek-deployment/issues
@@ -97,6 +97,15 @@ inputs:
         Name of the branch being deployed.
       is_expand: true
       skip_if_empty: true
+  - context:
+    opts:
+      category: Optional
+      title: "Context"
+      summary: |
+        String with any value, which can be used to categorize the deployments.
+      description: |
+        String with any value, which can be used to categorize the deployments.
+      skip_if_empty: true
   - commenced_at:
     opts:
       category: Optional
@@ -115,15 +124,21 @@ inputs:
       description: |
         ISO date string including timezone. Plandek will default to current time if omitted.
       skip_if_empty: true
-  - context:
+  - status:
     opts:
       category: Optional
-      title: "Context"
+      title: Release status
       summary: |
-        String with any value, which can be used to categorize the deployments.
+        Release status to be reported to Plandek.
       description: |
-        String with any value, which can be used to categorize the deployments.
+        Release status to be reported to Plandek.  If not provided, then status would be
+        determined based on `$BITRISE_BUILD_STATUS` env variable.
       skip_if_empty: true
+      value_options:
+      - "success"
+      - "failure"
+      - "rollback"
+      - "aborted"
   - debug: "false"
     opts:
       category: Debug
