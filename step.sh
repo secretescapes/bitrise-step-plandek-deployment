@@ -1,4 +1,12 @@
 #!/bin/bash
+# fail if any commands fails
+set -e
+
+# debug log
+if [ "$debug" == "true" ]; 
+then
+  set -x
+fi
 
 red=$'\e[31m'
 green=$'\e[32m'
@@ -8,8 +16,13 @@ body='{
   "client_key": "'${client_key}'",
   "pipeline": "'${pipeline}'",
   "build": "'${build}'",
-  "commits": "'${commits}'",
 '
+
+if [ -n "$branch_name" ]; 
+then
+  body+='  "branch_name": "'${branch_name}'",
+'
+fi
 
 if [ "$calculate_commits_in_build" == "true" ]; 
 then
@@ -20,9 +33,27 @@ else
 '
 fi
 
-if [ -n "$branch_name" ]; 
+if [ -n "$commits" ]; 
 then
-  body+='  "branch_name": "'${branch_name}'",
+  body+='  "commits": "'${commits}'",
+'
+fi
+
+if [ -n "$commenced_at" ]; 
+then
+  body+='  "commenced_at": "'${commenced_at}'",
+'
+fi
+
+if [ -n "$context" ]; 
+then
+  body+='  "context": "'${context}'",
+'
+fi
+
+if [ -n "$deployed_at" ]; 
+then
+  body+='  "deployed_at": "'${deployed_at}'",
 '
 fi
 
@@ -37,7 +68,12 @@ fi
 
 body+='}'
 
-echo "${body}"
+if [ "$dry_run" == "true" ]; 
+then
+  echo "Dry run - request body: "
+  echo "${body}"
+  exit
+fi
 
 res=$(curl -H 'Content-Type: application/json' -H "Authorization: Bearer ${api_token}" --data-raw "${body}" -v https://pipelines.plandek.com/deployments/v1/deployment)
 
@@ -46,6 +82,7 @@ echo "${res}"
 if [[ $res == *"detail"* ]]; then
   error="$(echo $res | jq '.detail' | tr -d '"')"
   echo $'\t'"${red}❗️ Failed $error ${reset}"
+  exit 1
 else
   status="$(echo $res | jq '.status' | tr -d '"')"
   echo "Status = " $status
