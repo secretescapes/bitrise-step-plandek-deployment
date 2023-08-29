@@ -129,9 +129,9 @@ inputs:
       category: Debug
       title: Debug mode
       summary: |
-        Will enable debug mode in bash script.
+        Will enable bash script debug log mode.
       description: |
-        Will enable debug mode in bash script.
+        Will enable bash script debug log mode.
       is_required: true
       value_options:
       - "true"
