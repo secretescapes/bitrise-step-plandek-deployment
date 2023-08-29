@@ -121,8 +121,8 @@ inputs:
         String with any value, which can be used to categorize the deployments.
       skip_if_empty: true
   - debug: "false"
-    category: Debug
     opts:
+      category: Debug
       title: Debug mode
       summary: |
         Will enable debug mode in bash script.
@@ -133,8 +133,8 @@ inputs:
       - "true"
       - "false"
   - dry_run: "false"
-    category: Debug
     opts:
+      category: Debug
       title: Dry run
       summary: |
         Will build the Plandek request body and print it, but will not run request itself.

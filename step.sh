@@ -70,6 +70,7 @@ body+='}'
 
 if [ "$dry_run" == "true" ]; 
 then
+  echo "Dry run - request body: "
   echo "${body}"
   exit
 fi
