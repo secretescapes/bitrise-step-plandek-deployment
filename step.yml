@@ -133,6 +133,7 @@ inputs:
       description: |
         Release status to be reported to Plandek.  If not provided, then status would be
         determined based on `$BITRISE_BUILD_STATUS` env variable.
+      skip_if_empty: true
       value_options:
       - "success"
       - "failure"
