@@ -65,7 +65,7 @@ inputs:
       description: |
         Build identifier in your build tool. Typically the version being deployed (e.g. Svc B 10.2.1).
       is_required: true
-  - commits: $BITRISE_GIT_COMMIT
+  - commits:
     opts:
       title: "Commits"
       summary: |
@@ -73,9 +73,10 @@ inputs:
       description: |
         The full commit hash(es) of the release being deployed.
       is_required: true
+      skip_if_empty: true
   - calculate_commits_in_build: "false"
     opts:
-      title: Network Logs
+      title: Calculate commits
       summary: |
         If true, Plandek will use the information in your deployment to work out what commits were included in the release
         (see below for explanation). If false, you must specify the commits in the commits field.
@@ -86,7 +87,7 @@ inputs:
       value_options:
       - "true"
       - "false"
-  - branch_name: $BITRISE_GIT_BRANCH
+  - branch_name:
     opts:
       title: "Branch name"
       summary: |
@@ -94,3 +95,52 @@ inputs:
       description: |
         Name of the branch being deployed.
       is_expand: true
+      skip_if_empty: true
+  - commenced_at:
+    opts:
+      title: "Commenced at"
+      summary: |
+        ISO date string including timezone. Used to calculate the time duration of the deployment.
+      description: |
+        ISO date string including timezone. Used to calculate the time duration of the deployment.
+      skip_if_empty: true
+  - deployed_at:
+    opts:
+      title: "Deployed at"
+      summary: |
+        ISO date string including timezone. Plandek will default to current time if omitted.
+      description: |
+        ISO date string including timezone. Plandek will default to current time if omitted.
+      skip_if_empty: true
+  - context:
+    opts:
+      title: "Context"
+      summary: |
+        String with any value, which can be used to categorize the deployments.
+      description: |
+        String with any value, which can be used to categorize the deployments.
+      skip_if_empty: true
+  - debug: "false"
+    category: Debug
+    opts:
+      title: Debug mode
+      summary: |
+        Will enable debug mode in bash script.
+      description: |
+        Will enable debug mode in bash script.
+      is_required: true
+      value_options:
+      - "true"
+      - "false"
+  - dry_run: "false"
+    category: Debug
+    opts:
+      title: Dry run
+      summary: |
+        Will build the Plandek request body and print it, but will not run request itself.
+      description: |
+        Will build the Plandek request body and print it, but will not run request itself.
+      is_required: true
+      value_options:
+      - "true"
+      - "false"
