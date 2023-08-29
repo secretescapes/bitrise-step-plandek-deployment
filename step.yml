@@ -97,6 +97,15 @@ inputs:
         Name of the branch being deployed.
       is_expand: true
       skip_if_empty: true
+  - context:
+    opts:
+      category: Optional
+      title: "Context"
+      summary: |
+        String with any value, which can be used to categorize the deployments.
+      description: |
+        String with any value, which can be used to categorize the deployments.
+      skip_if_empty: true
   - commenced_at:
     opts:
       category: Optional
@@ -114,15 +123,6 @@ inputs:
         ISO date string including timezone. Plandek will default to current time if omitted.
       description: |
         ISO date string including timezone. Plandek will default to current time if omitted.
-      skip_if_empty: true
-  - context:
-    opts:
-      category: Optional
-      title: "Context"
-      summary: |
-        String with any value, which can be used to categorize the deployments.
-      description: |
-        String with any value, which can be used to categorize the deployments.
       skip_if_empty: true
   - status:
     opts:
