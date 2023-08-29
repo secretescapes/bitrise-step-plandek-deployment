@@ -57,11 +57,8 @@ then
 '
 fi
 
-if [ -n "$status" ]; 
+if [ "$status" == "automatic" ]; 
 then
-  body+='  "status": "'${status}'",
-'
-else
   if [ "$BITRISE_BUILD_STATUS" == "0" ]; 
   then
     body+='  "status": "success"
@@ -70,6 +67,9 @@ else
     body+='  "status": "failure"
   '
   fi
+else
+  body+='  "status": "'${status}'",
+'
 fi
 
 body+='}'

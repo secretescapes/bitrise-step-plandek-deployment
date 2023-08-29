@@ -87,6 +87,21 @@ inputs:
       value_options:
       - "true"
       - "false"
+  - status: "automatic"
+    opts:
+      title: Release status
+      summary: |
+        Release status to be reported to Plandek.
+      description: |
+        Release status to be reported to Plandek. If `automatic`, then status would be
+        determined based on `$BITRISE_BUILD_STATUS` env variable.
+      is_required: true
+      value_options:
+      - "automatic"
+      - "success"
+      - "failure"
+      - "rollback"
+      - "aborted"
   - branch_name:
     opts:
       category: Optional
@@ -124,21 +139,6 @@ inputs:
       description: |
         ISO date string including timezone. Plandek will default to current time if omitted.
       skip_if_empty: true
-  - status:
-    opts:
-      category: Optional
-      title: Release status
-      summary: |
-        Release status to be reported to Plandek.
-      description: |
-        Release status to be reported to Plandek.  If not provided, then status would be
-        determined based on `$BITRISE_BUILD_STATUS` env variable.
-      skip_if_empty: true
-      value_options:
-      - "success"
-      - "failure"
-      - "rollback"
-      - "aborted"
   - debug: "false"
     opts:
       category: Debug
