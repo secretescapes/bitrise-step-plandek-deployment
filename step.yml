@@ -89,6 +89,7 @@ inputs:
       - "false"
   - branch_name:
     opts:
+      category: Optional
       title: "Branch name"
       summary: |
         Name of the branch being deployed.
@@ -98,6 +99,7 @@ inputs:
       skip_if_empty: true
   - commenced_at:
     opts:
+      category: Optional
       title: "Commenced at"
       summary: |
         ISO date string including timezone. Used to calculate the time duration of the deployment.
@@ -106,6 +108,7 @@ inputs:
       skip_if_empty: true
   - deployed_at:
     opts:
+      category: Optional
       title: "Deployed at"
       summary: |
         ISO date string including timezone. Plandek will default to current time if omitted.
@@ -114,6 +117,7 @@ inputs:
       skip_if_empty: true
   - context:
     opts:
+      category: Optional
       title: "Context"
       summary: |
         String with any value, which can be used to categorize the deployments.
