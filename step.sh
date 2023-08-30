@@ -69,7 +69,7 @@ then
   '
   fi
 else
-  body+='  "status": "'${status}'"
+  body+='  "status": "'${status}'",
 '
 fi
 
@@ -77,13 +77,16 @@ body+='}'
 
 if [ "$dry_run" == "true" ];
 then
+  echo "Dry run"
+  echo
   echo "Dry run - request body: "
   echo "${body}"
-  echo
 
   # validating the body JSON
-  echo "Parsing body JSON:"
-  echo "${body}" | jq '("Build: " + .build)'
+  echo
+  echo "Validating request body..."
+  echo "${body}" | jq
+  echo $'\t'"${green}Request body JSON is valid! ${reset}"
 
   exit
 fi
