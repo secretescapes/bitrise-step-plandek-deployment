@@ -3,9 +3,10 @@
 set -e
 
 # debug log
-if [ "$debug" == "true" ]; 
+if [ "$debug" == "true" ];
 then
   set -x
+  curl_options="-v"
 fi
 
 red=$'\e[31m'
@@ -18,13 +19,13 @@ body='{
   "build": "'${build}'",
 '
 
-if [ -n "$branch_name" ]; 
+if [ -n "$branch_name" ];
 then
   body+='  "branch_name": "'${branch_name}'",
 '
 fi
 
-if [ "$calculate_commits_in_build" == "true" ]; 
+if [ "$calculate_commits_in_build" == "true" ];
 then
   body+='  "calculate_commits_in_build": true,
 '
@@ -33,33 +34,33 @@ else
 '
 fi
 
-if [ -n "$commits" ]; 
+if [ -n "$commits" ];
 then
   body+='  "commits": "'${commits}'",
 '
 fi
 
-if [ -n "$commenced_at" ]; 
+if [ -n "$commenced_at" ];
 then
   body+='  "commenced_at": "'${commenced_at}'",
 '
 fi
 
-if [ -n "$context" ]; 
+if [ -n "$context" ];
 then
   body+='  "context": "'${context}'",
 '
 fi
 
-if [ -n "$deployed_at" ]; 
+if [ -n "$deployed_at" ];
 then
   body+='  "deployed_at": "'${deployed_at}'",
 '
 fi
 
-if [ "$status" == "automatic" ]; 
+if [ "$status" == "automatic" ];
 then
-  if [ "$BITRISE_BUILD_STATUS" == "0" ]; 
+  if [ "$BITRISE_BUILD_STATUS" == "0" ];
   then
     body+='  "status": "success"
   '
@@ -68,24 +69,34 @@ then
   '
   fi
 else
-  body+='  "status": "'${status}'",
+  body+='  "status": "'${status}'"
 '
 fi
 
 body+='}'
 
-if [ "$dry_run" == "true" ]; 
+if [ "$dry_run" == "true" ];
 then
-  echo "Dry run - request body: "
+  echo "Dry run - Request body: "
   echo "${body}"
+  echo
+  echo "Validating request body..."
+  echo "${body}" | jq empty
+  echo $'\t'"${green}Request body JSON is valid! ${reset}"
+
   exit
 fi
 
-res=$(curl -H 'Content-Type: application/json' -H "Authorization: Bearer ${api_token}" --data-raw "${body}" -v https://pipelines.plandek.com/deployments/v1/deployment)
-
-echo "${res}"
+res=$(curl -H 'Content-Type: application/json' -H "Authorization: Bearer ${api_token}" --data-raw "${body}" ${curl_options} https://pipelines.plandek.com/deployments/v1/deployment)
 
 if [[ $res == *"detail"* ]]; then
+
+  echo "Request body:"
+  echo "${body}"
+  echo
+  echo "Response:"
+  echo "${res}"
+
   error="$(echo $res | jq '.detail' | tr -d '"')"
   echo $'\t'"${red}❗️ Failed $error ${reset}"
   exit 1
