@@ -69,7 +69,7 @@ then
   '
   fi
 else
-  body+='  "status": "'${status}'",
+  body+='  "status": "'${status}'"
 '
 fi
 
