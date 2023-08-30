@@ -82,7 +82,8 @@ then
   echo
 
   # validating the body JSON
-  echo "${body}" | jq
+  echo "Parsing body JSON:"
+  echo "${body}" | jq '("Build: " + .build)'
 
   exit
 fi
