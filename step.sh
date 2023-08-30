@@ -77,15 +77,11 @@ body+='}'
 
 if [ "$dry_run" == "true" ];
 then
-  echo "Dry run"
-  echo
-  echo "Dry run - request body: "
+  echo "Dry run - Request body: "
   echo "${body}"
-
-  # validating the body JSON
   echo
   echo "Validating request body..."
-  echo "${body}" | jq
+  echo "${body}" | jq empty
   echo $'\t'"${green}Request body JSON is valid! ${reset}"
 
   exit
