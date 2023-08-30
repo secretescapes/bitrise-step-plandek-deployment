@@ -6,6 +6,7 @@ set -e
 if [ "$debug" == "true" ];
 then
   set -x
+  curl_options="-v"
 fi
 
 red=$'\e[31m'
@@ -84,11 +85,16 @@ then
   exit
 fi
 
-res=$(curl -H 'Content-Type: application/json' -H "Authorization: Bearer ${api_token}" --data-raw "${body}" -v https://pipelines.plandek.com/deployments/v1/deployment)
-
-echo "${res}"
+res=$(curl -H 'Content-Type: application/json' -H "Authorization: Bearer ${api_token}" --data-raw "${body}" ${curl_options} https://pipelines.plandek.com/deployments/v1/deployment)
 
 if [[ $res == *"detail"* ]]; then
+
+  echo "Request body:"
+  echo "${body}"
+  echo
+  echo "Response:"
+  echo "${res}"
+
   error="$(echo $res | jq '.detail' | tr -d '"')"
   echo $'\t'"${red}❗️ Failed $error ${reset}"
   exit 1
